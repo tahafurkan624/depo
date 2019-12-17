@@ -1,4 +1,4 @@
-//#include "pch.h"
+#include "pch.h"
 #include <iostream>
 #include <locale.h>
 #include <random>
@@ -37,14 +37,87 @@ int main()
 void pc() {
 	int satir, sutun, tercih;
 	char t[2] = { 'S','O' }, s;
-	tercih = rand() % 2 + 0; //0-1 arasında değer üretir
-	s = t[tercih];
-	do {
-		satir = rand() % 3 + 0; //0-2 arasında değer üretir
-		sutun = rand() % 3 + 0; //0-2 arasında değer üretir
-	} while (sos[satir][sutun] == 'S' || sos[satir][sutun] == 'O'); //Amaç; o konumda S veya O değeri varsa tekrar değer üretmesini sağlamak.
-	sos[satir][sutun] = s;
+	
+		//ilk 3ü yatay satırda sos varsa dolduruyor
+	for (int i = 0; i < 3; i++)
+	{
+		if (sos[i][0] == 'S' && sos[i][1] == 'O')
+		{
+			tercih = 0;
+			s = t[tercih];
+			sos[i][2] = s;
+			oyuncuKazan = false;
+			break;
+		}
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		if (sos[i][0] == 'S' && sos[i][2] == 'S')
+		{
+			tercih = 1;
+			s = t[tercih];
+			sos[i][1] = s;
+			oyuncuKazan = false;
+			break;
+		}
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		if (sos[i][0] == 'O' && sos[i][2] == 'S')
+		{
+			tercih = 0;
+			s = t[tercih];
+			sos[i][0] = s;
+			oyuncuKazan = false;
+			break;
+		}
+	}
+	//buradaki dikey satırda sos varsa dolduruyor
+	for (int i = 0; i < 3; i++)
+	{
+		if (sos[0][i] == 'S' && sos[1][i] == 'O')
+		{
+			tercih = 0;
+			s = t[tercih];
+			sos[2][0] = s;
+			oyuncuKazan = false;
+			break;
+		}
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		if (sos[0][i] == 'S' && sos[2][i] == 'S')
+		{
+			tercih = 1;
+			s = t[tercih];
+			sos[1][i] = s;
+			oyuncuKazan = false;
+			break;
+		}
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		if (sos[0][i] == 'O' && sos[2][i] == 'S')
+		{
+			tercih = 0;
+			s = t[tercih];
+			sos[0][i] = s;
+			oyuncuKazan = false;
+			break;
+		}
+	}
+	if(oyuncuKazan)
+	{
+		tercih = rand() % 2 + 0; //0-1 arasında değer üretir
+		s = t[tercih];
+		do {
+			satir = rand() % 3 + 0; //0-2 arasında değer üretir
+			sutun = rand() % 3 + 0; //0-2 arasında değer üretir
+		} while (sos[satir][sutun] == 'S' || sos[satir][sutun] == 'O'); //Amaç; o konumda S veya O değeri varsa tekrar değer üretmesini sağlamak.
+		sos[satir][sutun] = s;
+	}
 }
+
 void yazdir() {
 	for (int i = 0; i < 3; i++)
 	{
@@ -104,6 +177,7 @@ void SosKontrol()
 			}
 			else
 			{
+				yazdir();
 				cout << endl << "Kaybettiniz!" << endl;
 				sonBitirici = true;
 			}
@@ -121,6 +195,7 @@ void SosKontrol()
 			}
 			else
 			{
+				yazdir();
 				cout << endl << "Kaybettiniz!" << endl;
 				sonBitirici = true;
 			}
