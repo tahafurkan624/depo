@@ -26,10 +26,12 @@ int main()
 		if (sonBitirici)
 			break;
 		yazdir();
-		SosKontrol();
 		if (sonBitirici)
 			break;
 		oyuncu();
+		SosKontrol();
+		if (sonBitirici)
+			break;
 	} while (true); //while (sonBitirici==false); //while(!sonBitirici);
 
 
@@ -41,7 +43,7 @@ void pc() {
 		//ilk 3ü yatay satırda sos varsa dolduruyor
 	for (int i = 0; i < 3; i++)
 	{
-		if (sos[i][0] == 'S' && sos[i][1] == 'O')
+		if (sos[i][0] == 'S' && sos[i][1] == 'O' && sos[i][2] != 'S' && sos[i][2] != 'O')
 		{
 			tercih = 0;
 			s = t[tercih];
@@ -52,7 +54,7 @@ void pc() {
 	}
 	for (int i = 0; i < 3; i++)
 	{
-		if (sos[i][0] == 'S' && sos[i][2] == 'S')
+		if (sos[i][0] == 'S' && sos[i][2] == 'S' && sos[i][1]!='S' && sos[i][1] != 'O')
 		{
 			tercih = 1;
 			s = t[tercih];
@@ -63,7 +65,7 @@ void pc() {
 	}
 	for (int i = 0; i < 3; i++)
 	{
-		if (sos[i][0] == 'O' && sos[i][2] == 'S')
+		if (sos[i][1] == 'O' && sos[i][2] == 'S' && sos[i][0] != 'S' && sos[i][0] != 'O')
 		{
 			tercih = 0;
 			s = t[tercih];
@@ -75,18 +77,18 @@ void pc() {
 	//buradaki dikey satırda sos varsa dolduruyor
 	for (int i = 0; i < 3; i++)
 	{
-		if (sos[0][i] == 'S' && sos[1][i] == 'O')
+		if (sos[0][i] == 'S' && sos[1][i] == 'O' && sos[2][i] != 'S' && sos[2][i] != 'O')
 		{
 			tercih = 0;
 			s = t[tercih];
-			sos[2][0] = s;
+			sos[2][i] = s;
 			oyuncuKazan = false;
 			break;
 		}
 	}
 	for (int i = 0; i < 3; i++)
 	{
-		if (sos[0][i] == 'S' && sos[2][i] == 'S')
+		if (sos[0][i] == 'S' && sos[2][i] == 'S' && sos[1][i] != 'S' && sos[1][i] != 'O')
 		{
 			tercih = 1;
 			s = t[tercih];
@@ -97,7 +99,7 @@ void pc() {
 	}
 	for (int i = 0; i < 3; i++)
 	{
-		if (sos[0][i] == 'O' && sos[2][i] == 'S')
+		if (sos[1][i] == 'O' && sos[2][i] == 'S' && sos[0][i] != 'S' && sos[0][i] != 'O')
 		{
 			tercih = 0;
 			s = t[tercih];
@@ -172,6 +174,7 @@ void SosKontrol()
 		{
 			if (oyuncuKazan)
 			{
+				yazdir();
 				cout << endl << "Kazandınz!" << endl;
 				sonBitirici = true;
 			}
@@ -190,6 +193,7 @@ void SosKontrol()
 		{
 			if (oyuncuKazan)
 			{
+				yazdir();
 				cout << endl << "Kazandınz!" << endl;
 				sonBitirici = true;
 			}
